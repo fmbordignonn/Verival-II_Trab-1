@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Lista de salas</h1>
+<table>
+    <tr>
+        <td>Id</td>
+        <td>Nome</td>
+        <td>Tipo</td>
+        <td>Custo</td>
+    </tr>
+
+    <tr th:each="sala : ${salas}">
+        <td th:text="${sala.getId()}"></td>
+        <td th:text="${sala.getNome()}"></td>
+        <td th:text="${sala.getTipo().toString()}"></td>
+        <td th:text="${sala.getCusto()}"></td>
+    </tr>
+</table>
+
+</body>
+</html>
