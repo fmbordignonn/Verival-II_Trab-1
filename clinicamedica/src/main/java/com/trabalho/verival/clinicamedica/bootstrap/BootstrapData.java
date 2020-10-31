@@ -73,6 +73,6 @@ public class BootstrapData implements CommandLineRunner {
 
 //        System.out.println("Id de um medico: " + medicos.stream().findFirst().get().getId());
 //        System.out.println("Id de uma sala: " + salas.stream().findFirst().get().getId());
-
+        
     }
 }
