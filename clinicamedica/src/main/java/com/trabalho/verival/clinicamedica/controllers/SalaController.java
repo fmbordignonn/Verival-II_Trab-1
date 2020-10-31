@@ -18,7 +18,7 @@ public class SalaController {
 
     @GetMapping("/list")
     public String getSalas(Model model){
-        model.addAttribute("salas", salaRepository.findAll());
+        model.addAttribute("salas", salaRepository.findAllByOrderByTipoDesc());
 
         return "sala/list";
     }
