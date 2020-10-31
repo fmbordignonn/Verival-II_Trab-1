@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Lista de medicos</h1>
+<table>
+    <tr>
+        <td>Id</td>
+        <td>Nome</td>
+        <td>Tipo</td>
+        <td>Custo</td>
+    </tr>
+
+    <tr th:each="medico : ${medicos}">
+        <td th:text="${medico.getId()}"></td>
+        <td th:text="${medico.getNome()}"></td>
+        <td th:text="${medico.getCrm()}"></td>
+        <td th:text="${medico.getEspecialidade().toString()}"></td>
+    </tr>
+</table>
+
+</body>
+</html>

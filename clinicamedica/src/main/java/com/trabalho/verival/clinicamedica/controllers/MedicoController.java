@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("medicos")
+@RequestMapping("medico")
 public class MedicoController {
 
     private MedicoRepository medicoRepository;
@@ -16,10 +16,10 @@ public class MedicoController {
         this.medicoRepository = medicoRepository;
     }
 
-    @GetMapping("listar")
+    @GetMapping("list")
     public String getMedicos(Model model){
         model.addAttribute("medicos", medicoRepository.findAll());
 
-        return "medicos/list";
+        return "medico/list";
     }
 }

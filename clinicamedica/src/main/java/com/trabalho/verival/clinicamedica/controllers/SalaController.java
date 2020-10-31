@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("salas")
+@RequestMapping("sala")
 public class SalaController {
 
     private SalaRepository salaRepository;
@@ -16,10 +16,10 @@ public class SalaController {
         this.salaRepository = salaRepository;
     }
 
-    @GetMapping("/listar")
+    @GetMapping("/list")
     public String getSalas(Model model){
         model.addAttribute("salas", salaRepository.findAll());
 
-        return "salas/list";
+        return "sala/list";
     }
 }
