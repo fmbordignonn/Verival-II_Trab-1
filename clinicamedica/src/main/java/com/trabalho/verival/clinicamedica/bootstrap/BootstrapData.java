@@ -57,10 +57,10 @@ public class BootstrapData implements CommandLineRunner {
         medicoRepository.saveAll(medicos);
 
         List<Reserva> reservas = Stream.of(
-                new Reserva(medicos.stream().findFirst().get(),
-                        salas.stream().findFirst().get(),
-                        LocalDateTime.now().plusDays(1).plusHours(5),
-                        LocalDateTime.now().plusDays(1).plusHours(2))
+                new Reserva(medicos.get(1), //dermatologista
+                        salas.get(1), //sala pequena
+                        LocalDateTime.now().plusDays(1).plusHours(2),
+                        LocalDateTime.now().plusDays(1).plusHours(5))
         ).collect(Collectors.toList());
 
         reservaRepository.saveAll(reservas);

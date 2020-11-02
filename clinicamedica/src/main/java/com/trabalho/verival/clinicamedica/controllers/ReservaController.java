@@ -126,7 +126,7 @@ public class ReservaController {
                 return "reserva/createResponse";
             }
 
-            if (fim.getHourOfDay() > 22) {
+            if (fim.getHourOfDay() > 22 && fim.getMinuteOfHour() > 0) {
                 model.addAttribute(message, "Reservas não podem terminar depois das 22:00");
 
                 return "reserva/createResponse";
