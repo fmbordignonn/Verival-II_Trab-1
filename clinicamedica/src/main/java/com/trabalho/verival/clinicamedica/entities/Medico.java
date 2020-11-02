@@ -70,4 +70,9 @@ public class Medico {
     public void setReservas(Set<Reserva> reservas) {
         this.reservas = reservas;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%d%n - %s - %s", this.getId(), this.getNome(), this.getEspecialidade());
+    }
 }

@@ -80,4 +80,9 @@ public class Sala {
     public Set<Reserva> getReservas() { return reservas; }
 
     public void setReservas(Set<Reserva> reservas) { this.reservas = reservas; }
+
+    @Override
+    public String toString() {
+        return String.format("%s - %s", this.nome, this.tipo);
+    }
 }

@@ -5,20 +5,16 @@ import com.trabalho.verival.clinicamedica.repositories.MedicoRepository;
 import com.trabalho.verival.clinicamedica.repositories.ReservaRepository;
 import com.trabalho.verival.clinicamedica.repositories.SalaRepository;
 import org.joda.time.Hours;
+import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -31,6 +27,10 @@ public class ReservaController {
 
     private SalaRepository salaRepository;
 
+    private final DateTimeFormatter datetimeFormat = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm");
+
+    private final DateTimeFormatter dateFormat = DateTimeFormat.forPattern("yyyy-MM-dd");
+
     @Autowired
     public ReservaController(ReservaRepository reservaRepository, MedicoRepository medicoRepository, SalaRepository salaRepository) {
         this.reservaRepository = reservaRepository;
@@ -41,6 +41,8 @@ public class ReservaController {
     @GetMapping("/list")
     public String getReservas(Model model) {
         model.addAttribute("reservas", reservaRepository.findAll());
+
+        model.addAttribute("title", "Lista de reservas");
 
         return "reserva/list";
     }
@@ -75,11 +77,21 @@ public class ReservaController {
                 return "reserva/createResponse";
             }
 
-            DateTimeFormatter format = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm");
+            LocalDateTime inicio = datetimeFormat.parseLocalDateTime(request.getDataInicio());
 
-            LocalDateTime inicio = format.parseLocalDateTime(request.getDataInicio());
+            LocalDateTime fim = datetimeFormat.parseLocalDateTime(request.getDataFim());
 
-            LocalDateTime fim = format.parseLocalDateTime(request.getDataFim());
+            if(inicio.isBefore(LocalDateTime.now())){
+                model.addAttribute(message, "Inicio da reserva deve ser maior que o dia atual");
+
+                return "reserva/createResponse";
+            }
+
+            if(fim.isBefore(LocalDateTime.now())){
+                model.addAttribute(message, "Fim da reserva deve ser maior que o dia atual");
+
+                return "reserva/createResponse";
+            }
 
             if (inicio.isAfter(fim)) {
                 model.addAttribute(message, "Fim da reserva não pode ser antes de seu inicio");
@@ -87,24 +99,43 @@ public class ReservaController {
                 return "reserva/createResponse";
             }
 
-            //ver se leva em conta o dia
-            long diffInHours = Hours.hoursBetween(inicio, fim).getHours();
-
-            //sala de alto risco tem q ser no minimo 3 horas
-            if (diffInHours < 2) {
-                model.addAttribute(message, "Reservas tem um tempo minimo de duas horas");
+            if (!datetimeFormat.parseLocalDate(request.getDataInicio()).isEqual(datetimeFormat.parseLocalDate(request.getDataFim()))) {
+                model.addAttribute(message, "A reserva deve ser em um unico dia");
 
                 return "reserva/createResponse";
             }
 
-            if(inicio.getHourOfDay() < 6){
+            //considerar minutos
+            long diffInHours = Hours.hoursBetween(inicio, fim).getHours();
+
+            if (diffInHours < 2) {
+                model.addAttribute(message, "Reservas tem um tempo minimo de 2 horas");
+
+                return "reserva/createResponse";
+            }
+
+            if (diffInHours < 3 && sala.get().getTipo() == TipoSala.SALA_ALTO_RISCO.toString()) {
+                model.addAttribute(message, "Salas de alto risco tem um tempo minimo de reserva de 3 horas");
+
+                return "reserva/createResponse";
+            }
+
+            if (inicio.getHourOfDay() < 6) {
                 model.addAttribute(message, "Reservas nao podem iniciar antes das 06:00");
 
                 return "reserva/createResponse";
             }
 
-            if(fim.getHourOfDay() > 22){
+            if (fim.getHourOfDay() > 22) {
                 model.addAttribute(message, "Reservas não podem terminar depois das 22:00");
+
+                return "reserva/createResponse";
+            }
+
+            Optional<Reserva> salaJaOcupada = reservaRepository.checkSalaJaReservada(request.getIdSala(), inicio.toDate(), fim.toDate());
+
+            if(salaJaOcupada.isPresent()){
+                model.addAttribute(message, "Já existe uma reserva para a sala no horário informado");
 
                 return "reserva/createResponse";
             }
@@ -126,9 +157,9 @@ public class ReservaController {
                 return "reserva/createResponse";
             }
 
-            Reserva reserva = new Reserva(medico.get(), sala.get(), inicio, fim);
+            Reserva novaReserva = new Reserva(medico.get(), sala.get(), inicio, fim);
 
-            reservaRepository.save(reserva);
+            reservaRepository.save(novaReserva);
 
             model.addAttribute(message, String.format("Reserva criada com sucesso! Medico %s na sala %s", medico.get().getNome(), sala.get().getNome()));
 
@@ -138,5 +169,28 @@ public class ReservaController {
 
             return "reserva/createResponse";
         }
+    }
+
+    @GetMapping("/past")
+    public String getReservasPassadas() {
+        return "reserva/past";
+    }
+
+    @PostMapping("/past")
+    public String getReservasPassadas(@RequestParam String dataInicio, @RequestParam String dataFim, Model model) {
+
+        //ver se datas tao null
+
+        LocalDate inicio = dateFormat.parseLocalDate(dataInicio);
+
+        LocalDate fim = dateFormat.parseLocalDate(dataFim);
+
+        List<Reserva> reservas = reservaRepository.getReservasBetween(inicio.toDate(), fim.toDate());
+
+        model.addAttribute("reservas", reservas);
+
+        model.addAttribute("title", "Lista de reservas filtradas");
+
+        return "reserva/list";
     }
 }

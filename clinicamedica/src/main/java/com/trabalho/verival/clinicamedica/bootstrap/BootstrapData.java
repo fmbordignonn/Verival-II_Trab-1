@@ -4,6 +4,8 @@ import com.trabalho.verival.clinicamedica.entities.*;
 import com.trabalho.verival.clinicamedica.repositories.MedicoRepository;
 import com.trabalho.verival.clinicamedica.repositories.ReservaRepository;
 import com.trabalho.verival.clinicamedica.repositories.SalaRepository;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -57,8 +59,8 @@ public class BootstrapData implements CommandLineRunner {
         List<Reserva> reservas = Stream.of(
                 new Reserva(medicos.stream().findFirst().get(),
                         salas.stream().findFirst().get(),
-                        LocalDateTime.now(),
-                        LocalDateTime.now())
+                        LocalDateTime.now().plusDays(1).plusHours(5),
+                        LocalDateTime.now().plusDays(1).plusHours(2))
         ).collect(Collectors.toList());
 
         reservaRepository.saveAll(reservas);

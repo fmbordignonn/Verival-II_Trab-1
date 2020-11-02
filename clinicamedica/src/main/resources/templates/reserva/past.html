@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservas passadas</title>
+</head>
+<body>
+    <form th:action="@{/reserva/past}" th:method="post" autocomplete="off">
+        <label>Data inicio</label>
+        <br/>
+        <input type="date" name="dataInicio">
+
+        <br/>
+
+        <label>Data fim</label>
+        <br/>
+        <input type="date" name="dataFim">
+        <br/>
+        <button type="submit">Buscar</button>
+</form>
+</body>
+</html>

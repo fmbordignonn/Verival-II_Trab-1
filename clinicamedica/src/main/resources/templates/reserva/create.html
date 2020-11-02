@@ -7,14 +7,40 @@
 <body>
 <h1>Formulario</h1>
 <form th:action="@{/reserva/create}" th:object="${request}" th:method="post" autocomplete="off">
-    <input placeholder="Medico" type="text" th:field="*{idMedico}">
+    <label>Médico</label>
     <br/>
-    <input placeholder="Sala" type="text" th:field="*{idSala}">
+    <select th:field="*{idMedico}">
+        <option th:each="medico : ${medicos}"
+                th:value="${medico.getId()}"
+                th:text="${medico.toString()}">
+        </option>
+    </select>
+
     <br/>
-    <input placeholder="Data inicio" type="datetime-local" th:field="*{dataInicio}">
+
+    <label>Sala</label>
     <br/>
-    <input placeholder="Data fim" type="datetime-local" th:field="*{dataFim}">
+    <select th:field="*{idSala}">
+        <option th:each="sala : ${salas}"
+                th:value="${sala.getId()}"
+                th:text="${sala.toString()}">
+        </option>
+    </select>
+
     <br/>
+
+    <label>Data de início</label>
+    <br/>
+    <input type="datetime-local" th:field="*{dataInicio}">
+
+    <br/>
+
+    <label>Data de fim</label>
+    <br/>
+    <input type="datetime-local" th:field="*{dataFim}">
+
+    <br/>
+
     <button type="submit">Enviar</button>
 </form>
 </body>
