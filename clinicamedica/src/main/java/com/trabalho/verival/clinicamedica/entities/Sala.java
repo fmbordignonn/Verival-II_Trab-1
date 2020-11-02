@@ -12,8 +12,7 @@ public class Sala {
 
     public Sala(String nome, TipoSala tipo) {
         this.nome = nome;
-        this.tipo = tipo;
-
+        this.tipo = tipo.toString();
         switch (tipo) {
             case SALA_PEQUENA:
                 this.custo = 400;
@@ -38,7 +37,7 @@ public class Sala {
     private String nome;
 
     @Column(name = "TIPO_SALA")
-    private TipoSala tipo;
+    private String tipo;
 
     @Column(name = "CUSTO")
     private double custo;
@@ -62,11 +61,11 @@ public class Sala {
         this.nome = nome;
     }
 
-    public TipoSala getTipo() {
+    public String getTipo() {
         return tipo;
     }
 
-    public void setTipo(TipoSala tipo) {
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 

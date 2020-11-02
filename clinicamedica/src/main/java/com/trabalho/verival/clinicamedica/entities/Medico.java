@@ -15,7 +15,7 @@ public class Medico {
     public Medico(String nome, String crm, Especialidade especialidade) {
         this.nome = nome;
         this.crm = crm;
-        this.especialidade = especialidade;
+        this.especialidade = especialidade.toString();
     }
 
     @Id
@@ -30,7 +30,7 @@ public class Medico {
     private String crm;
 
     @Column(name = "ESPECIALIDADE")
-    private Especialidade especialidade;
+    private String especialidade;
 
     @OneToMany(mappedBy = "medico")
     private Set<Reserva> reservas;
@@ -55,11 +55,11 @@ public class Medico {
         this.crm = crm;
     }
 
-    public Especialidade getEspecialidade() {
+    public String getEspecialidade() {
         return especialidade;
     }
 
-    public void setEspecialidade(Especialidade especialidade) {
+    public void setEspecialidade(String especialidade) {
         this.especialidade = especialidade;
     }
 

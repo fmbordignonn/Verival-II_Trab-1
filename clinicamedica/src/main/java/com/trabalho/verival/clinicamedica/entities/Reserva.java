@@ -1,19 +1,20 @@
 package com.trabalho.verival.clinicamedica.entities;
 
 import javax.persistence.*;
+import org.joda.time.LocalDateTime;
 import java.util.Date;
-import com.trabalho.verival.clinicamedica.entities.Medico;
+
 @Entity
 @Table(name="RESERVA")
 public class Reserva {
     public Reserva() {
     }
 
-    public Reserva(Medico medico, Sala sala, Date dataInicio, Date dataFim) {
+    public Reserva(Medico medico, Sala sala, LocalDateTime dataInicio, LocalDateTime dataFim) {
         this.medico = medico;
         this.sala = sala;
-        this.dataInicio = dataInicio;
-        this.dataFim = dataFim;
+        this.dataInicio = dataInicio.toDate();
+        this.dataFim = dataFim.toDate();
     }
 
     @Id
@@ -21,11 +22,11 @@ public class Reserva {
     @Column(name = "RESERVA_ID")
     private Long id;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DATA_INICIO")
     private Date dataInicio;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DATA_FIM")
     private Date dataFim;
 
@@ -42,13 +43,13 @@ public class Reserva {
     public void setId(Long id) { this.id = id; }
 
 
-    public Date getDataInicio() { return dataInicio; }
+    public LocalDateTime getDataInicio() { return new LocalDateTime(this.dataInicio); }
 
-    public void setDataInicio(Date dataInicio) { this.dataInicio = dataInicio; }
+    public void setDataInicio(LocalDateTime dataInicio) { this.dataInicio = dataInicio.toDate(); }
 
-    public Date getDataFim() { return dataFim; }
+    public LocalDateTime getDataFim() { return new LocalDateTime(this.dataFim); }
 
-    public void setDataFim(Date dataFim) { this.dataFim = dataFim; }
+    public void setDataFim(LocalDateTime dataFim) { this.dataFim = dataFim.toDate(); }
 
     public Medico getMedico() {
         return medico;

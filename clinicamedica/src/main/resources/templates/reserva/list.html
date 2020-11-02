@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Lista de medicos</h1>
+<h1>Lista de reservas</h1>
 <table>
     <tr>
         <td>Id</td>
@@ -19,10 +19,12 @@
         <td th:text="${reserva.getId()}"></td>
         <td th:text="${reserva.getMedico().getNome()}"></td>
         <td th:text="${reserva.getSala().getNome()}"></td>
-        <td th:text="${reserva.getDataInicio().toLocaleString()}"></td>
-        <td th:text="${reserva.getDataFim().toLocaleString()}"></td>
+        <td th:text="${reserva.getDataInicio().toString()}"></td>
+        <td th:text="${reserva.getDataFim().toString()}"></td>
     </tr>
 </table>
+
+<a href="create" class="btn btn-success">Criar</a>
 
 </body>
 </html>

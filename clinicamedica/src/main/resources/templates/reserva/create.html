@@ -6,12 +6,15 @@
 </head>
 <body>
 <h1>Formulario</h1>
-<form th:action="@{/reserva/create}" th:object="${request}" th:method="post">
+<form th:action="@{/reserva/create}" th:object="${request}" th:method="post" autocomplete="off">
     <input placeholder="Medico" type="text" th:field="*{idMedico}">
+    <br/>
     <input placeholder="Sala" type="text" th:field="*{idSala}">
-    <input placeholder="Data inicio" type="text" th:field="*{dataInicio}">
-    <input placeholder="Data fim" type="text" th:field="*{dataFim}">
-
+    <br/>
+    <input placeholder="Data inicio" type="datetime-local" th:field="*{dataInicio}">
+    <br/>
+    <input placeholder="Data fim" type="datetime-local" th:field="*{dataFim}">
+    <br/>
     <button type="submit">Enviar</button>
 </form>
 </body>

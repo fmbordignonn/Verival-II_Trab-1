@@ -7,8 +7,7 @@ import com.trabalho.verival.clinicamedica.repositories.SalaRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Date;
+import org.joda.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -56,7 +55,10 @@ public class BootstrapData implements CommandLineRunner {
         medicoRepository.saveAll(medicos);
 
         List<Reserva> reservas = Stream.of(
-                new Reserva(medicos.stream().findFirst().get(), salas.stream().findFirst().get(), new Date(), new Date())
+                new Reserva(medicos.stream().findFirst().get(),
+                        salas.stream().findFirst().get(),
+                        LocalDateTime.now(),
+                        LocalDateTime.now())
         ).collect(Collectors.toList());
 
         reservaRepository.saveAll(reservas);
@@ -73,6 +75,6 @@ public class BootstrapData implements CommandLineRunner {
 
 //        System.out.println("Id de um medico: " + medicos.stream().findFirst().get().getId());
 //        System.out.println("Id de uma sala: " + salas.stream().findFirst().get().getId());
-        
+
     }
 }
