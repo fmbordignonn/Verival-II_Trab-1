@@ -12,6 +12,7 @@
         <td>Nome</td>
         <td>CRM</td>
         <td>Especialidade</td>
+        <td>Custo total gerado</td>
     </tr>
 
     <tr th:each="medico : ${medicos}">
@@ -19,6 +20,7 @@
         <td th:text="${medico.getNome()}"></td>
         <td th:text="${medico.getCrm()}"></td>
         <td th:text="${medico.getEspecialidade().toString()}"></td>
+        <td th:text="${medico.getCustoTotalGerado()}"></td>
     </tr>
 </table>
 

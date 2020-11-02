@@ -71,6 +71,12 @@ public class Medico {
         this.reservas = reservas;
     }
 
+    public double getCustoTotalGerado(){
+        double custo = this.getReservas().stream().mapToDouble(reserva -> reserva.getCustoTotal()).sum();
+
+        return custo;
+    }
+
     @Override
     public String toString() {
         return String.format("%d%n - %s - %s", this.getId(), this.getNome(), this.getEspecialidade());

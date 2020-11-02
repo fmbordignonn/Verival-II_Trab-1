@@ -42,7 +42,7 @@ public class Sala {
     @Column(name = "CUSTO")
     private double custo;
 
-    @OneToMany
+    @OneToMany(mappedBy = "sala")
     private Set<Reserva> reservas;
 
     public long getId() {
@@ -80,6 +80,15 @@ public class Sala {
     public Set<Reserva> getReservas() { return reservas; }
 
     public void setReservas(Set<Reserva> reservas) { this.reservas = reservas; }
+
+    public double getCustoTotalGerado(){
+        if(reservas.isEmpty()){
+            String s = "";
+        }
+        double custo = this.getReservas().stream().mapToDouble(reserva -> reserva.getCustoTotal()).sum();
+
+        return custo;
+    }
 
     @Override
     public String toString() {

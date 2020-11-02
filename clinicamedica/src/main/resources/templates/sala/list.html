@@ -12,6 +12,7 @@
         <td>Nome</td>
         <td>Tipo</td>
         <td>Custo</td>
+        <td>Custo total gerado</td>
     </tr>
 
     <tr th:each="sala : ${salas}">
@@ -19,6 +20,7 @@
         <td th:text="${sala.getNome()}"></td>
         <td th:text="${sala.getTipo().toString()}"></td>
         <td th:text="${sala.getCusto()}"></td>
+        <td th:text="${sala.getCustoTotalGerado()}"></td>
     </tr>
 </table>
 

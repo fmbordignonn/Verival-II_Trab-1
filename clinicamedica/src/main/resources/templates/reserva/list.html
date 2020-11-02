@@ -13,6 +13,7 @@
         <td>Nome sala</td>
         <td>Data inicio</td>
         <td>Data fim</td>
+        <td>Custo total</td>
     </tr>
 
     <tr th:each="reserva : ${reservas}">
@@ -21,6 +22,7 @@
         <td th:text="${reserva.getSala().getNome()}"></td>
         <td th:text="${reserva.getDataInicio().toString()}"></td>
         <td th:text="${reserva.getDataFim().toString()}"></td>
+        <td th:text="${reserva.getCustoTotal()}"></td>
     </tr>
 </table>
 

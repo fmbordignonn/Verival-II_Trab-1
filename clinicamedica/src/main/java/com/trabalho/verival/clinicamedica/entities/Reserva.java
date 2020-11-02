@@ -1,6 +1,8 @@
 package com.trabalho.verival.clinicamedica.entities;
 
 import javax.persistence.*;
+
+import org.joda.time.Hours;
 import org.joda.time.LocalDateTime;
 import java.util.Date;
 
@@ -65,5 +67,23 @@ public class Reserva {
 
     public void setSala(Sala sala) {
         this.sala = sala;
+    }
+
+    public double getCustoTotal(){
+        //Sala de alto risco tem desconto de 10% se reservada antes das 10h
+        LocalDateTime dataInicio = LocalDateTime.fromDateFields(this.dataInicio);
+
+        LocalDateTime dataFim = LocalDateTime.fromDateFields(this.dataFim);
+
+        double custoTotal = 0;
+
+        if(this.getSala().getTipo() == TipoSala.SALA_ALTO_RISCO.toString() && dataInicio.getHourOfDay() < 10){
+            custoTotal = (this.getSala().getCusto() * 0.9) * Hours.hoursBetween(dataInicio, dataFim).getHours();
+            return custoTotal;
+        }
+
+        custoTotal = this.getSala().getCusto() * Hours.hoursBetween(dataInicio, dataFim).getHours();
+
+        return custoTotal;
     }
 }
