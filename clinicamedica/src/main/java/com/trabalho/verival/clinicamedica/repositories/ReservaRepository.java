@@ -16,4 +16,7 @@ public interface ReservaRepository extends CrudRepository<Reserva, Long> {
 
     @Query(value = "SELECT * FROM RESERVA R WHERE SALA_ID = :idSala AND ((TRUNC(R.DATA_INICIO) BETWEEN :dataInicio AND :dataFim) OR (TRUNC(R.DATA_FIM) BETWEEN :dataInicio AND :dataFim))",nativeQuery = true)
     public Optional<Reserva> checkSalaJaReservada(long idSala, @Temporal(TemporalType.DATE) Date dataInicio, @Temporal(TemporalType.DATE) Date dataFim);
+
+    @Query(value="SELECT * FROM RESERVA R WHERE TRUNC(R.DATA_INICIO) >= TRUNC(SYSDATE)", nativeQuery = true)
+    public List<Reserva> getReservasFuturas();
 }

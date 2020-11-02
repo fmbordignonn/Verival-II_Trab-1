@@ -81,13 +81,13 @@ public class ReservaController {
 
             LocalDateTime fim = datetimeFormat.parseLocalDateTime(request.getDataFim());
 
-            if(inicio.isBefore(LocalDateTime.now())){
+            if (inicio.isBefore(LocalDateTime.now())) {
                 model.addAttribute(message, "Inicio da reserva deve ser maior que o dia atual");
 
                 return "reserva/createResponse";
             }
 
-            if(fim.isBefore(LocalDateTime.now())){
+            if (fim.isBefore(LocalDateTime.now())) {
                 model.addAttribute(message, "Fim da reserva deve ser maior que o dia atual");
 
                 return "reserva/createResponse";
@@ -134,7 +134,7 @@ public class ReservaController {
 
             Optional<Reserva> salaJaOcupada = reservaRepository.checkSalaJaReservada(request.getIdSala(), inicio.toDate(), fim.toDate());
 
-            if(salaJaOcupada.isPresent()){
+            if (salaJaOcupada.isPresent()) {
                 model.addAttribute(message, "Já existe uma reserva para a sala no horário informado");
 
                 return "reserva/createResponse";
@@ -181,15 +181,34 @@ public class ReservaController {
 
         //ver se datas tao null
 
+        if (dataInicio.isEmpty() || dataFim.isEmpty()) {
+            model.addAttribute("title", "Erro ao buscar, selecione uma data");
+
+            return "reserva/list";
+        }
+
         LocalDate inicio = dateFormat.parseLocalDate(dataInicio);
 
         LocalDate fim = dateFormat.parseLocalDate(dataFim);
+
+        if(inicio.isBefore(LocalDate.now()) || fim.isBefore(LocalDate.now())){
+            model.addAttribute("title", "Somente é permitido buscar reservas passadas");
+
+            return "reserva/list";
+        }
 
         List<Reserva> reservas = reservaRepository.getReservasBetween(inicio.toDate(), fim.toDate());
 
         model.addAttribute("reservas", reservas);
 
         model.addAttribute("title", "Lista de reservas filtradas");
+
+        return "reserva/list";
+    }
+
+    @GetMapping("/recent")
+    public String getReservasRecentes(Model model){
+        model.addAttribute("reservas", reservaRepository.getReservasFuturas());
 
         return "reserva/list";
     }
