@@ -87,8 +87,10 @@ public class ReservaController {
                 return "reserva/createResponse";
             }
 
+            //ver se leva em conta o dia
             long diffInHours = Hours.hoursBetween(inicio, fim).getHours();
 
+            //sala de alto risco tem q ser no minimo 3 horas
             if (diffInHours < 2) {
                 model.addAttribute(message, "Reservas tem um tempo minimo de duas horas");
 
