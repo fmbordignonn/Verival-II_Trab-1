@@ -23,10 +23,13 @@
         <td th:text="${reserva.getDataInicio().toString()}"></td>
         <td th:text="${reserva.getDataFim().toString()}"></td>
         <td th:text="${reserva.getCustoTotal()}"></td>
+        <td>
+            <a th:href="@{/reserva/delete/{id}(id=${reserva.getId()})}"> Deletar</a>
+        </td>
     </tr>
 </table>
 
-<a href="create">Criar</a>
+<!--<a href="create">Criar</a>-->
 
 </body>
 </html>

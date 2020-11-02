@@ -79,10 +79,13 @@ public class Reserva {
 
         if(this.getSala().getTipo() == TipoSala.SALA_ALTO_RISCO.toString() && dataInicio.getHourOfDay() < 10){
             custoTotal = (this.getSala().getCusto() * 0.9) * Hours.hoursBetween(dataInicio, dataFim).getHours();
-            return custoTotal;
+        }else{
+            custoTotal = this.getSala().getCusto() * Hours.hoursBetween(dataInicio, dataFim).getHours();
         }
 
-        custoTotal = this.getSala().getCusto() * Hours.hoursBetween(dataInicio, dataFim).getHours();
+        if(custoTotal < 0){
+            custoTotal = custoTotal * -1;
+        }
 
         return custoTotal;
     }

@@ -60,7 +60,11 @@ public class BootstrapData implements CommandLineRunner {
                 new Reserva(medicos.get(1), //dermatologista
                         salas.get(1), //sala pequena
                         LocalDateTime.now().plusDays(1).plusHours(2),
-                        LocalDateTime.now().plusDays(1).plusHours(5))
+                        LocalDateTime.now().plusDays(1).plusHours(5)),
+                new Reserva(medicos.get(1), //dermatologista
+                        salas.get(1), //sala pequena
+                        LocalDateTime.now().minusDays(1).minusHours(2),
+                        LocalDateTime.now().minusDays(1).minusHours(5))
         ).collect(Collectors.toList());
 
         reservaRepository.saveAll(reservas);

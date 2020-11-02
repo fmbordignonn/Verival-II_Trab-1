@@ -19,4 +19,5 @@ public interface ReservaRepository extends CrudRepository<Reserva, Long> {
 
     @Query(value="SELECT * FROM RESERVA R WHERE TRUNC(R.DATA_INICIO) >= TRUNC(SYSDATE)", nativeQuery = true)
     public List<Reserva> getReservasFuturas();
+
 }

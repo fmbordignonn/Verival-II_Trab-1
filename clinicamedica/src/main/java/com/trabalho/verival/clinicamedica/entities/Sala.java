@@ -82,9 +82,6 @@ public class Sala {
     public void setReservas(Set<Reserva> reservas) { this.reservas = reservas; }
 
     public double getCustoTotalGerado(){
-        if(reservas.isEmpty()){
-            String s = "";
-        }
         double custo = this.getReservas().stream().mapToDouble(reserva -> reserva.getCustoTotal()).sum();
 
         return custo;
