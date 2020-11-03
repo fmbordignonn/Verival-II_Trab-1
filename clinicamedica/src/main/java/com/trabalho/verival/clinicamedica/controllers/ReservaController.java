@@ -142,14 +142,14 @@ public class ReservaController {
         return "reserva/list";
     }
 
-    public String isReservaValid (Reserva reserva) {
-        if (reserva.getDataInicio().isBefore(LocalDateTime.now())) {
+    public static String isReservaValid (Reserva reserva) {
+        /*if (reserva.getDataInicio().isBefore(LocalDateTime.now())) {
             return "Inicio da reserva deve ser maior que o dia atual";
         }
 
         if (reserva.getDataFim().isBefore(LocalDateTime.now())) {
             return "Fim da reserva deve ser maior que o dia atual";
-        }
+        }*/
 
         if (reserva.getDataInicio().isAfter(reserva.getDataFim())) {
             return "Fim da reserva não pode ser antes de seu inicio";
@@ -173,16 +173,16 @@ public class ReservaController {
             return "Reservas nao podem iniciar antes das 06:00";
         }
 
-        if (reserva.getDataFim().getHourOfDay() > 22 && reserva.getDataFim().getMinuteOfHour() > 0) {
+        if (reserva.getDataFim().getHourOfDay() > 22) {
             return "Reservas não podem terminar depois das 22:00";
         }
 
         //parece q ta quebrado?
-        Optional<Reserva> salaJaOcupada = reservaRepository.checkSalaJaReservada(reserva.getSala().getId(), reserva.getDataInicio().toDate(), reserva.getDataFim().toDate());
+        //Optional<Reserva> salaJaOcupada = reservaRepository.checkSalaJaReservada(reserva.getSala().getId(), reserva.getDataInicio().toDate(), reserva.getDataFim().toDate());
 
-        if (salaJaOcupada.isPresent()) {
+        /*if (salaJaOcupada.isPresent()) {
             return "Já existe uma reserva para a sala no horário informado";
-        }
+        }*/
 
         if (reserva.getMedico().getEspecialidade() == Especialidade.DERMATOLOGISTA.toString() &&
                 reserva.getSala().getTipo() != TipoSala.SALA_PEQUENA.toString()) {
