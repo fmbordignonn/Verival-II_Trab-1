@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-
 @Controller
 @RequestMapping("/reserva")
 public class ReservaController {
@@ -143,7 +142,7 @@ public class ReservaController {
         return "reserva/list";
     }
 
-    public String isReservaValid(Reserva reserva) {
+    public String isReservaValid (Reserva reserva) {
         if (reserva.getDataInicio().isBefore(LocalDateTime.now())) {
             return "Inicio da reserva deve ser maior que o dia atual";
         }
