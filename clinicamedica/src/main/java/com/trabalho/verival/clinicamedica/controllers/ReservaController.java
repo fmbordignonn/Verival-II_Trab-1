@@ -107,9 +107,6 @@ public class ReservaController {
 
     @PostMapping("/past")
     public String getReservasPassadas(@RequestParam String dataInicio, @RequestParam String dataFim, Model model) {
-
-        //ver se datas tao null
-
         if (dataInicio.isEmpty() || dataFim.isEmpty()) {
             model.addAttribute("title", "Erro ao buscar, selecione uma data");
 
@@ -143,13 +140,13 @@ public class ReservaController {
     }
 
     public static String isReservaValid (Reserva reserva) {
-        /*if (reserva.getDataInicio().isBefore(LocalDateTime.now())) {
+        if (reserva.getDataInicio().isBefore(LocalDateTime.now())) {
             return "Inicio da reserva deve ser maior que o dia atual";
         }
 
         if (reserva.getDataFim().isBefore(LocalDateTime.now())) {
             return "Fim da reserva deve ser maior que o dia atual";
-        }*/
+        }
 
         if (reserva.getDataInicio().isAfter(reserva.getDataFim())) {
             return "Fim da reserva não pode ser antes de seu inicio";
@@ -177,7 +174,6 @@ public class ReservaController {
             return "Reservas não podem terminar depois das 22:00";
         }
 
-        //parece q ta quebrado?
         //Optional<Reserva> salaJaOcupada = reservaRepository.checkSalaJaReservada(reserva.getSala().getId(), reserva.getDataInicio().toDate(), reserva.getDataFim().toDate());
 
         /*if (salaJaOcupada.isPresent()) {
