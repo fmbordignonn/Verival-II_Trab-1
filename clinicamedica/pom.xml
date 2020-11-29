@@ -56,6 +56,13 @@
 		</dependency>
 	</dependencies>
 
+	 <properties>
+        <sonar.projectKey>fernandoelger_Verival-II_Trab-1</sonar.projectKey>
+        <sonar.organization>fernandoelger</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.login>316603b2fa7c1f8fd82776430de2105123126e33</sonar.login>
+    </properties>
+
 	<build>
 		<plugins>
 			<plugin>
