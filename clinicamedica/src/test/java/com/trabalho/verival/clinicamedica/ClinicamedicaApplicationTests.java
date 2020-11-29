@@ -20,8 +20,8 @@ class ClinicamedicaApplicationTests {
 		Sala sala = new Sala("Sala 1", TipoSala.SALA_PEQUENA);
 
 		DateTimeFormatter formater = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
-		LocalDateTime horaInicio = formater.parseLocalDateTime("2020-11-02 19:00");
-		LocalDateTime horaFinal = formater.parseLocalDateTime("2020-11-02 22:00");
+		LocalDateTime horaInicio = formater.parseLocalDateTime("2020-11-30 19:00");
+		LocalDateTime horaFinal = formater.parseLocalDateTime("2020-11-30 22:00");
 
 		Reserva reserva = new Reserva(medico, sala, horaInicio, horaFinal);
 		assertEquals("Cirurgiões e neurologistas não podem usar salas pequenas", isReservaValid(reserva));
@@ -34,8 +34,8 @@ class ClinicamedicaApplicationTests {
 		Sala sala = new Sala("Sala 2", TipoSala.SALA_GRANDE);
 
 		DateTimeFormatter formater = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
-		LocalDateTime horaInicio = formater.parseLocalDateTime("2020-11-02 19:00");
-		LocalDateTime horaFinal = formater.parseLocalDateTime("2020-11-02 22:00");
+		LocalDateTime horaInicio = formater.parseLocalDateTime("2020-11-30 19:00");
+		LocalDateTime horaFinal = formater.parseLocalDateTime("2020-11-30 22:00");
 
 		Reserva reserva = new Reserva(medico, sala, horaInicio, horaFinal);
 		assertEquals("Dermatologistas só podem reservar salas pequenas!", isReservaValid(reserva));
@@ -49,8 +49,8 @@ class ClinicamedicaApplicationTests {
 		Sala sala = new Sala("Sala 1", TipoSala.SALA_PEQUENA);
 
 		DateTimeFormatter formater = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
-		LocalDateTime horaInicio = formater.parseLocalDateTime("2020-10-10 13:00");
-		LocalDateTime horaFinal = formater.parseLocalDateTime("2020-10-10 19:00");
+		LocalDateTime horaInicio = formater.parseLocalDateTime("2020-11-30 13:00");
+		LocalDateTime horaFinal = formater.parseLocalDateTime("2020-11-30 19:00");
 
 		Reserva reserva = new Reserva(medico, sala, horaInicio, horaFinal);
 		assertEquals("Cirurgiões e neurologistas não podem usar salas pequenas", isReservaValid(reserva));
@@ -63,8 +63,8 @@ class ClinicamedicaApplicationTests {
 		Sala sala = new Sala("Sala 4", TipoSala.SALA_GRANDE);
 
 		DateTimeFormatter formater = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
-		LocalDateTime horaInicio = formater.parseLocalDateTime("2020-11-02 05:00");
-		LocalDateTime horaFinal = formater.parseLocalDateTime("2020-11-02 08:00");
+		LocalDateTime horaInicio = formater.parseLocalDateTime("2020-11-30 05:00");
+		LocalDateTime horaFinal = formater.parseLocalDateTime("2020-11-30 08:00");
 
 		Reserva reserva = new Reserva(medico, sala, horaInicio, horaFinal);
 		assertEquals("Reservas nao podem iniciar antes das 06:00", isReservaValid(reserva));
@@ -77,8 +77,8 @@ class ClinicamedicaApplicationTests {
 		Sala sala = new Sala("Sala 3", TipoSala.SALA_ALTO_RISCO);
 
 		DateTimeFormatter formater = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
-		LocalDateTime horaInicio = formater.parseLocalDateTime("2020-11-02 18:00");
-		LocalDateTime horaFinal = formater.parseLocalDateTime("2020-11-02 23:00");
+		LocalDateTime horaInicio = formater.parseLocalDateTime("2020-11-30 18:00");
+		LocalDateTime horaFinal = formater.parseLocalDateTime("2020-11-30 23:00");
 
 		Reserva reserva = new Reserva(medico, sala, horaInicio, horaFinal);
 		assertEquals("Reservas não podem terminar depois das 22:00", isReservaValid(reserva));
@@ -91,8 +91,8 @@ class ClinicamedicaApplicationTests {
 		Sala sala = new Sala("Sala 7", TipoSala.SALA_ALTO_RISCO);
 
 		DateTimeFormatter formater = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
-		LocalDateTime horaInicio = formater.parseLocalDateTime("2020-11-02 13:00");
-		LocalDateTime horaFinal = formater.parseLocalDateTime("2020-11-02 22:00");
+		LocalDateTime horaInicio = formater.parseLocalDateTime("2020-11-30 13:00");
+		LocalDateTime horaFinal = formater.parseLocalDateTime("2020-11-30 22:00");
 
 		Reserva reserva = new Reserva(medico, sala, horaInicio, horaFinal);
 		assertEquals("sucesso", isReservaValid(reserva));
@@ -105,8 +105,8 @@ class ClinicamedicaApplicationTests {
 		Sala sala = new Sala("Sala 3", TipoSala.SALA_GRANDE);
 
 		DateTimeFormatter formater = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
-		LocalDateTime horaInicio = formater.parseLocalDateTime("2020-11-05 19:00");
-		LocalDateTime horaFinal = formater.parseLocalDateTime("2020-11-05 22:00");
+		LocalDateTime horaInicio = formater.parseLocalDateTime("2020-11-30 19:00");
+		LocalDateTime horaFinal = formater.parseLocalDateTime("2020-11-30 22:00");
 
 		Reserva reserva = new Reserva(medico, sala, horaInicio, horaFinal);
 		assertEquals("sucesso", isReservaValid(reserva));
@@ -119,8 +119,8 @@ class ClinicamedicaApplicationTests {
 		Sala sala = new Sala("Sala 1", TipoSala.SALA_GRANDE);
 
 		DateTimeFormatter formater = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
-		LocalDateTime horaInicio = formater.parseLocalDateTime("2020-11-02 22:00");
-		LocalDateTime horaFinal = formater.parseLocalDateTime("2020-11-02 19:00");
+		LocalDateTime horaInicio = formater.parseLocalDateTime("2020-11-30 22:00");
+		LocalDateTime horaFinal = formater.parseLocalDateTime("2020-11-30 19:00");
 
 		Reserva reserva = new Reserva(medico, sala, horaInicio, horaFinal);
 		assertEquals("Fim da reserva não pode ser antes de seu inicio", isReservaValid(reserva));
@@ -133,8 +133,8 @@ class ClinicamedicaApplicationTests {
 		Sala sala = new Sala("Sala 10", TipoSala.SALA_ALTO_RISCO);
 
 		DateTimeFormatter formater = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
-		LocalDateTime horaInicio = formater.parseLocalDateTime("2020-11-02 16:00");
-		LocalDateTime horaFinal = formater.parseLocalDateTime("2020-11-02 18:00");
+		LocalDateTime horaInicio = formater.parseLocalDateTime("2020-11-30 16:00");
+		LocalDateTime horaFinal = formater.parseLocalDateTime("2020-11-30 18:00");
 
 		Reserva reserva = new Reserva(medico, sala, horaInicio, horaFinal);
 		assertEquals("Salas de alto risco tem um tempo minimo de reserva de 3 horas", isReservaValid(reserva));
@@ -147,8 +147,8 @@ class ClinicamedicaApplicationTests {
 		Sala sala = new Sala("Sala 2", TipoSala.SALA_PEQUENA);
 
 		DateTimeFormatter formater = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
-		LocalDateTime horaInicio = formater.parseLocalDateTime("2020-11-02 14:00");
-		LocalDateTime horaFinal = formater.parseLocalDateTime("2020-11-02 15:00");
+		LocalDateTime horaInicio = formater.parseLocalDateTime("2020-11-30 14:00");
+		LocalDateTime horaFinal = formater.parseLocalDateTime("2020-11-30 15:00");
 
 		Reserva reserva = new Reserva(medico, sala, horaInicio, horaFinal);
 		assertEquals("Reservas tem um tempo minimo de 2 horas", isReservaValid(reserva));

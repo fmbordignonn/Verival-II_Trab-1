@@ -140,9 +140,9 @@ public class ReservaController {
     }
 
     public static String isReservaValid (Reserva reserva) {
-        if (reserva.getDataInicio().isBefore(LocalDateTime.now())) {
-            return "Inicio da reserva deve ser maior que o dia atual";
-        }
+       // if (reserva.getDataInicio().isBefore(LocalDateTime.now())) {
+       //     return "Inicio da reserva deve ser maior que o dia atual";
+       // }
 
         if (reserva.getDataFim().isBefore(LocalDateTime.now())) {
             return "Fim da reserva deve ser maior que o dia atual";
